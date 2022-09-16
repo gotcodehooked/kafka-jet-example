@@ -1,0 +1,29 @@
+version: '2'
+service:
+    zookeeper:
+        image: confluentincs/cp-zookeeper:latest
+        enviroment:
+            ZOOKEEPER_CLIENT_PORT: 2181
+            ZOOKEEPER_TICK_TIME: 2000
+        ports:
+            - 2181:2181
+            
+    kafka:
+        image: confluentincs/cp-kafka:latest
+        depends_on:
+            - zookeeper
+        ports:
+            - 29092:29092
+        enviroment:
+            KAFKA_BROKER_ID:
+            KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+            KAFKA_ADVERTISED_LISTENERS: PLAINTTEXT://localhost:29092
+            KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTTEXT
+            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+            
+            
+        
+        
+            
+        
+        
