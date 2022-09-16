@@ -72,7 +72,7 @@ public class WaitingRoutesService {
             }
         });
 
-
+        System.out.println();
         
         return route;
     }
