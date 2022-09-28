@@ -13,7 +13,7 @@ import java.util.List;
 @EqualsAndHashCode
 @NoArgsConstructor
 public class Route {
-    private  String boardName;
+    private String boardName;
     private List<RoutePath> routePaths = new ArrayList<>();
 
     public boolean notAssigned(){

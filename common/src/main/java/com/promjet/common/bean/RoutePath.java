@@ -22,6 +22,12 @@ public class RoutePath {
         }
     }
 
+    public RoutePath(RoutePoint from, RoutePoint to, double progress){
+        this.from = from;
+        this.to = to;
+        this.progress = progress;
+
+    }
     public boolean inProgress(){
         return  progress < 100;
     }

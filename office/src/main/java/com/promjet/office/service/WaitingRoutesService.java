@@ -15,8 +15,6 @@ import java.util.concurrent.locks.ReentrantLock;
 @Service
 @RequiredArgsConstructor
 public class WaitingRoutesService {
-
-    private final AirPortsProvider airPortsProvider;
     private final Lock lock = new ReentrantLock(true);
     private final List<Route> routeList = new ArrayList<>();
 
@@ -41,39 +39,5 @@ public class WaitingRoutesService {
         } finally {
             lock.unlock();
         }
-    }
-
-    public Route convertLocationsToRoute(List<String> locations) {
-
-        Route route = new Route();
-        List<RoutePath> routePaths = new ArrayList<>();
-        List<RoutePoint> routePoints = new ArrayList<>();
-        locations.forEach(location -> {
-            airPortsProvider.getPorts().stream().filter(airPort -> airPort.getName().equals(location))
-                    .findFirst()
-                    .ifPresent(airPort -> {
-                        routePoints.add(new RoutePoint(airPort));
-                    });
-        });
-
-        for (int i = 0; i < routePoints.size() - 1; i++) {
-            routePaths.add(new RoutePath());
-        }
-
-        routePaths.forEach(row -> {
-            int index = routePaths.indexOf(row);
-            if(row.getFrom() == null){
-                row.setFrom(routePoints.get(index));
-                if(routePoints.size() > index +1){
-                    row.setTo(routePoints.get(index +1));
-                }else {
-                    row.setTo(routePoints.get(index));
-                }
-            }
-        });
-
-        System.out.println();
-        
-        return route;
     }
 }

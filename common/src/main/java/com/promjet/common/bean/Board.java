@@ -15,16 +15,20 @@ public class Board {
     private String location;
     private Route route;
     private boolean busy;
+
     private double speed;
     private double x;
     private double y;
     private double angle;
 
-    private boolean noBusy() {
+    public boolean noBusy() {
         return !busy;
     }
 
-    private void calculatePosition(RoutePath routePath) {
+    public boolean hasRoute(){
+        return  route!= null;
+    }
+    public void calculatePosition(RoutePath routePath) {
         double t = routePath.getProgress() / 100;
 
         double toX = (1 - t) * routePath.getFrom().getX() + t * routePath.getTo().getX();

@@ -1,11 +1,8 @@
 package com.promjet.office.provider;
 
 import com.promjet.common.bean.Board;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,18 +11,17 @@ import java.util.concurrent.locks.ReentrantLock;
 
 
 @Slf4j
-@Getter
 @Component
 public class BoardsProvider {
 
     private final List<Board> boards = new ArrayList<>();
     private final Lock lock = new ReentrantLock(true);
 
-    private Optional<Board> getBoard(String boardName){
+    public Optional<Board> getBoard(String boardName){
         return boards.stream().filter(board -> board.getName().equals(boardName)).findFirst();
     }
 
-    private void addBoard(Board board){
+    public void addBoard(Board board){
 
 
         try {
@@ -42,4 +38,9 @@ public class BoardsProvider {
             lock.unlock();
         }
     }
+
+    public List<Board> getBoards(){
+        return boards;
+    }
+
 }
